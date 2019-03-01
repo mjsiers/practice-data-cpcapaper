@@ -16,7 +16,7 @@ will provide the full signal (target and background).
 ## Project Goals
 ------------
 - [ ] Implement Python Generator to generate sample spectroscopy signal for analysis.
-- [ ] Implement Python Generator to generate multiple variations of sample background signals found with spectroscopy data.
+- [ ] Implement Python Generator to generate multiple variations of sample background signals for analysis.
 - [ ] Generate analysis plots for comparing results between Standard PCA and Contrastive PCA.
 - [ ] Generate anomaly detection models and compare results between Standard PCA and Contrastive PCA.
 
