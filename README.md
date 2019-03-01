@@ -1,5 +1,5 @@
-Examine Use of Contrastive PCA Algorihtm on Simulated Spectroscopy Data
-=======================================================================
+Examine Use of Contrastive PCA on Simulated Spectroscopy Data
+=============================================================
 The purpose of this learning project is to explore the use of the [**Contrastive PCA**](https://arxiv.org/abs/1709.06716) 
 algorithm on simulated spectroscopy data.  The references folder contains links too and copies of a few different papers 
 that describe this variation on the standard PCA algorithm.
