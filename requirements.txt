@@ -6,7 +6,9 @@ certifi==2018.11.29
 chardet==3.0.4
 Click==7.0
 colorama==0.4.1
+contrastive==1.1.0
 cookiecutter==1.6.0
+cycler==0.10.0
 decorator==4.3.2
 defusedxml==0.5.0
 entrypoints==0.3
@@ -24,7 +26,9 @@ jupyter==1.0.0
 jupyter-client==5.2.4
 jupyter-console==6.0.0
 jupyter-core==4.4.0
+kiwisolver==1.0.1
 MarkupSafe==1.1.0
+matplotlib==3.0.3
 mistune==0.8.4
 nbconvert==5.4.0
 nbformat==4.4.0
@@ -38,6 +42,7 @@ poyo==0.4.2
 prometheus-client==0.5.0
 prompt-toolkit==2.0.8
 Pygments==2.3.1
+pyparsing==2.3.1
 python-dateutil==2.7.5
 pytz==2018.9
 pywinpty==0.5.5
@@ -48,6 +53,7 @@ scikit-learn==0.20.2
 scipy==1.2.0
 Send2Trash==1.5.0
 six==1.12.0
+sklearn==0.0
 terminado==0.8.1
 testpath==0.4.2
 tornado==5.1.1
