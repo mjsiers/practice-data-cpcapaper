@@ -1,7 +1,24 @@
-practice-data-cpcapaper
-==============================
+Examine Use of Contrastive PCA Algorihtm on Simulated Spectroscopy Data
+=======================================================================
+The purpose of this learning project is to explore the use of the [**Contrastive PCA**](https://arxiv.org/abs/1709.06716) 
+algorithm on simulated spectroscopy data.  The references folder contains links too and copies of a few different papers 
+that describe this variation on the standard PCA algorithm.
 
-A short description of the project.
+An important step in the processing of Raman spectroscopy data is determining the best method for removing the 
+background signal.  The Raman signal can be obscured by the background signal which is always present and caused by the
+fluorescence of the sample.
+
+The **Contrastive PCA** algorithm was developed to compute the PCA components by maximizing the target variance 
+while trying to minimize the background variance.  This algorithm requires the use of two datasets.  The background
+dataset provides the algorithm with samples to describe the patterns of the background signal.  The target dataset
+will provide the full signal (target and background).
+
+## Project Goals
+------------
+- [ ] Implement Python Generator to generate sample spectroscopy signal for analysis.
+- [ ] Implement Python Generator to generate multiple variations of sample background signals found with spectroscopy data.
+- [ ] Generate analysis plots for comparing results between Standard PCA and Contrastive PCA.
+- [ ] Generate anomaly detection models and compare results between Standard PCA and Contrastive PCA.
 
 Project Organization
 ------------
@@ -10,10 +27,9 @@ Project Organization
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
+    │   ├── generated      <- Simulated spectroscopy data generated from the included source code.
     │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    │   └── processed      <- The final, canonical data sets for modeling.
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
