@@ -5,7 +5,7 @@ algorithm on simulated spectroscopy data.  The [**references**](./references) fo
 
 An important step in the processing of Raman spectroscopy data is determining the best method for removing the 
 baseline signal.  The details of the Raman signal can be obscured by the baseline signal which is always present and 
-caused by the fluorescence of the sample.
+caused by the fluorescence of the sample.  This process is known as baseline correction.
 
 The **Contrastive PCA** algorithm was developed to compute the PCA components by maximizing the target variance 
 while trying to minimize the background variance.  This algorithm requires the use of two datasets.  The background
