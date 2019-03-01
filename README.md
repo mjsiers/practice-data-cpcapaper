@@ -1,8 +1,7 @@
 Examine Use of Contrastive PCA on Simulated Spectroscopy Data
 =============================================================
 The purpose of this learning project is to explore the use of the [**Contrastive PCA**](https://arxiv.org/abs/1709.06716) 
-algorithm on simulated spectroscopy data.  The references folder contains links too and copies of a few different papers 
-that describe this variation on the standard PCA algorithm.
+algorithm on simulated spectroscopy data.  The [**references**](./references) folder contains links too and copies of a few different papers that describe this variation on the standard PCA algorithm.
 
 An important step in the processing of Raman spectroscopy data is determining the best method for removing the 
 background signal.  The Raman signal can be obscured by the background signal which is always present and caused by the
