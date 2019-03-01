@@ -4,8 +4,8 @@ The purpose of this learning project is to explore the use of the [**Contrastive
 algorithm on simulated spectroscopy data.  The [**references**](./references) folder contains links too and copies of a few different papers that describe this variation on the standard PCA algorithm.
 
 An important step in the processing of Raman spectroscopy data is determining the best method for removing the 
-background signal.  The Raman signal can be obscured by the background signal which is always present and caused by the
-fluorescence of the sample.
+baseline signal.  The details of the Raman signal can be obscured by the baseline signal which is always present and 
+caused by the fluorescence of the sample.
 
 The **Contrastive PCA** algorithm was developed to compute the PCA components by maximizing the target variance 
 while trying to minimize the background variance.  This algorithm requires the use of two datasets.  The background
@@ -15,7 +15,9 @@ will provide the full signal (target and background).
 ## Project Goals
 ------------
 - [ ] Implement Python Generator to generate sample spectroscopy signal for analysis.
-- [ ] Implement Python Generator to generate multiple variations of sample background signals for analysis.
+- [ ] Implement Python Generator to generate multiple variations of sample baseline signals for analysis.
+- [ ] Implement Python Generator to generate target dataset (target signal and baseline signal).
+- [ ] Implement Python methods to generate baseline dataset (baseline extracted from target signal samples).
 - [ ] Generate analysis plots for comparing results between Standard PCA and Contrastive PCA.
 - [ ] Generate anomaly detection models and compare results between Standard PCA and Contrastive PCA.
 
