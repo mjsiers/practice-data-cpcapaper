@@ -47,22 +47,3 @@ for i, level in enumerate(C_true):
 fig.suptitle('Combined Signal at Varying Concentration Levels')
 plt.legend()
 
-#%% [markdown]
-# ## Classification Problem Definition
-# The goal of this project is to determine how well the different algorithms can classify
-# the test signal when the concentration level is out of bounds.  The following plot shows the
-# signal boundaries that should be considered a normal concentration level.  
-# 
-# This plot includes some random noise added to each signal.  The algorithms will be tested
-# on generated datasets that include random noise.
-
-#%%
-C_true = np.array([[0.35, 0.65], [0.65, 0.35]])
-signal = np.dot(C_true, S_true)
-
-fig, axs = plt.subplots()
-for i, level in enumerate(C_true):
-    noise = 0.00075 * np.random.normal(size=xnum)
-    axs.plot(x, signal[i]+noise, label='{0:.2f}-concentration'.format(C_true[i, 0]))
-fig.suptitle('Normal Signal Range with Random Noise Added')
-plt.legend()
