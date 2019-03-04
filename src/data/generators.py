@@ -72,7 +72,7 @@ def data_generator(cnum, xnum=600, gcurve=0):
     # generate some random concentration levels and compute weight value for each signal peak
     c = np.random.random(cnum)
     cpeaks = np.vstack((c, (1.0-c))).T
-    logger.info('CLevels shape: [%s]', cpeaks.shape)           
+    logger.info('CLevels shape: [%s]', cpeaks.shape)             
 
     # generate the requested baselines and signals
     baselines = baseline_generator(cnum, x, gcurve)    
@@ -80,9 +80,9 @@ def data_generator(cnum, xnum=600, gcurve=0):
     results = baselines+signals
     logger.info('Results shape: [%s]', results.shape)         
 
-    return x, results
+    return x, c, results
 
 if __name__ == "__main__":
-    x, aaa = data_generator(5, gcurve=0)
-    x, bbb = data_generator(10, gcurve=1)
-    x, ccc = data_generator(15, gcurve=-1)
+    x, targets, signals = data_generator(5, gcurve=0)
+    x, targets, signals = data_generator(10, gcurve=1)
+    x, targets, signals = data_generator(15, gcurve=-1)
