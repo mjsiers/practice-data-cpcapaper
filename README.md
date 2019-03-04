@@ -37,7 +37,7 @@ Project Organization
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks          <- Jupyter notebooks.
-    │   └── workbooks      <- Python source file that gets exported to the Jupyter notebook file (VSCode).
+    │   └── workbooks      <- Python source files that are used to create the Jupyter notebook files (VSCode).
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
