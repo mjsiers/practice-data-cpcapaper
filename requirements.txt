@@ -49,6 +49,7 @@ Pygments==2.3.1
 pylint==2.3.1
 pyparsing==2.3.1
 python-dateutil==2.7.5
+python-dotenv==0.10.1
 pytz==2018.9
 pywinpty==0.5.5
 pyzmq==17.1.2
