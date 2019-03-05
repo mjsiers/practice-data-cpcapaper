@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
 from src.models.transformers.filter import Filter
-from src.models.transformers.baselinepoly import BaselinePoly
+from src.models.transformers.baseline import Baseline
 from src.models.transformers.truncate import Truncate
 
 def main(fname='', xmin=200, xmax=450):
@@ -22,7 +22,7 @@ def main(fname='', xmin=200, xmax=450):
     # setup pipeline and transform the data
     datapipeline = Pipeline([
         ('filter', Filter(windowsize=17, polyorder=3)),
-        ('baseline', BaselinePoly(polyorder=3, weight=0.95)),        
+        ('baseline', Baseline(polyorder=3, weight=0.95)),        
         ('truncate', Truncate(xmin=xmin, xmax=xmax))  
     ])
     Xdata = datapipeline.transform(dfX.values)
