@@ -6,12 +6,13 @@ from src.data import generators
 
 def generate_dataset(nitems, outpath, filename, gcurve):
     # generate the training datasets using specified baseline curve value     
-    xvalues, yvalues, Xdata = generators.data_generator(nitems, gcurve=gcurve) 
+    xvalues, yvalues, blexps, ydata = generators.data_generator(nitems, gcurve=gcurve) 
 
     # create dataframes from the generated dataset
     fname = os.path.join(outpath, filename)
-    dftrain = pd.DataFrame(Xdata, columns=xvalues.astype(int))
-    dftrain.insert(0, 'level', yvalues)
+    dftrain = pd.DataFrame(ydata, columns=xvalues.astype(int))
+    dftrain.insert(0, 'blexp', blexps)
+    dftrain.insert(0, 'level', yvalues)    
     dftrain.to_csv(fname, index_label='index', float_format='%.6f') 
 
 def main(version, outpath, ntrain=150, ntest=50):

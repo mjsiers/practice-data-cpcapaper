@@ -1,9 +1,5 @@
-import os
 import logging
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import numpy as np
-import pandas as pd 
 from scipy.stats import norm 
 
 logging.basicConfig(level="INFO", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -11,13 +7,14 @@ logger = logging.getLogger("data")
 
 def baseline_generator(num, x, gcurve=0, noise=0.00100):
     # initialize the output array for the specified number of curves
+    bexponents = np.zeros(num)
     baselines = np.zeros((num, x.shape[0]))
     logger.info('BCurves shape: [%s]', baselines.shape)    
     for i in range(num):
         # generate random value for the exponent and compute baseline curve
-        bexp = np.random.uniform(2.1, 2.2)
-        logger.debug('Baseline Exponent: [%.4f]', bexp)
-        blc = (-1e-7*x**bexp)
+        bexponents[i] = np.random.uniform(2.1, 2.2)
+        logger.debug('Baseline Exponent: [%.4f]', bexponents[i])
+        blc = (-1e-7*x**bexponents[i])
         bl = blc + np.min(blc)*-1.0
 
         # determine if we need to add/subtract in the gaussian curve
@@ -32,7 +29,7 @@ def baseline_generator(num, x, gcurve=0, noise=0.00100):
                 bl = bl + S_3
 
         # determine if we need to add in some random noise
-        if (noise > 0.0001): 
+        if noise > 0.0001: 
             xnum = x.shape[0]           
             bnoise = noise * np.random.normal(size=xnum)
             bl = bl + bnoise
@@ -40,7 +37,7 @@ def baseline_generator(num, x, gcurve=0, noise=0.00100):
         # save off the generated baseline curve into the output array
         baselines[i] = bl
 
-    return baselines
+    return bexponents, baselines
 
 def signal_generator(x, cpeaks, noise=0.00075):
     # create the required signal curves
@@ -75,14 +72,14 @@ def data_generator(cnum, xnum=600, gcurve=0):
     logger.info('CLevels shape: [%s]', cpeaks.shape)             
 
     # generate the requested baselines and signals
-    baselines = baseline_generator(cnum, x, gcurve)    
+    bexps, baselines = baseline_generator(cnum, x, gcurve)    
     signals = signal_generator(x, cpeaks)
     results = baselines+signals
     logger.info('Results shape: [%s]', results.shape)         
 
-    return x, c, results
+    return x, c, bexps, results
 
 if __name__ == "__main__":
-    x, targets, signals = data_generator(5, gcurve=0)
-    x, targets, signals = data_generator(10, gcurve=1)
-    x, targets, signals = data_generator(15, gcurve=-1)
+    xvals, targets, blexps, ydata = data_generator(5, gcurve=0)
+    xvals, targets, blexps, ydata = data_generator(10, gcurve=1)
+    xvals, targets, blexps, ydata = data_generator(15, gcurve=-1)

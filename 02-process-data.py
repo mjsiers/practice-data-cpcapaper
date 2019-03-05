@@ -16,8 +16,9 @@ def main(fname='', xmin=200, xmax=450):
 
     # read in the CSV file and ensure we drop the concentration level column
     dfFile = pd.read_csv(fname, index_col=0)
-    Xlevel = dfFile['level'].values.copy()    
-    dfX = dfFile.drop(['level'], axis=1).copy()
+    ylevel = dfFile['level'].values.copy()  
+    blexps = dfFile['blexp'].values.copy()       
+    dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()
 
     # setup pipeline and transform the data
     datapipeline = Pipeline([
@@ -30,10 +31,10 @@ def main(fname='', xmin=200, xmax=450):
     # covert data to dataframe in order to save the output to a file
     xcols = np.arange(xmin, xmax+1, dtype=int)      
     dfProcessed = pd.DataFrame(Xdata, columns=xcols)
-    dfProcessed.insert(0, 'level', Xlevel) 
+    dfProcessed.insert(0, 'blexp', blexps)     
+    dfProcessed.insert(0, 'level', ylevel) 
     print(dfProcessed.head())
  
-
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)

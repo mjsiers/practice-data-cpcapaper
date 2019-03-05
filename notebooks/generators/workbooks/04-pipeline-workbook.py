@@ -12,8 +12,9 @@ plt.rcParams["figure.figsize"] = (12, 5)
 
 #%%
 dfFile = pd.read_csv('./data/generated/ds0001-baseline-train.csv', index_col=0)
-Xlevel = dfFile['level'].values.copy()
-dfX = dfFile.drop(['level'], axis=1).copy()
+ylevel = dfFile['level'].values.copy()
+blexps = dfFile['blexp'].values.copy()
+dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()
 xvalues = dfX.columns.values.astype(float)
 yvalues = dfX.values.copy()
 
@@ -36,5 +37,5 @@ for i in range(10):
     axs.plot(xvalues[xmin:xmax+1], ydata1[i, xmin:xmax+1], label='filter')
     axs.plot(xvalues[xmin:xmax+1], ydata2[i, xmin:xmax+1], label='baseline')
     axs.plot(xvalues[xmin:xmax+1], ydata3[i], label='trunc')
-    fig.suptitle('Sample:[{0}] Target:[{1:.4f}]'.format(i, Xlevel[i]))         
+    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], ylevel[i]))         
     plt.legend()
