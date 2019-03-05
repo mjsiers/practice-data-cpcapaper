@@ -16,7 +16,6 @@ ylevel = dfFile['level'].values.copy()
 blexps = dfFile['blexp'].values.copy()
 dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()
 xvalues = dfX.columns.values.astype(float)
-yvalues = dfX.values.copy()
 
 xmin = 200
 xmax = 450
