@@ -1,9 +1,9 @@
-Examine Use of Contrastive PCA on Simulated Spectroscopy Data
-=============================================================
+Examine Use of Contrastive PCA on Simulated Spectral Data
+=========================================================
 The purpose of this learning project is to explore the use of the [**Contrastive PCA**](https://arxiv.org/abs/1709.06716) 
 algorithm on simulated spectroscopy data.  The [**references**](./references) folder contains links too and copies of a few different papers that describe this variation on the standard PCA algorithm.
 
-An important step in the processing of Raman spectroscopy data is determining the best method for removing the 
+An important step in the processing of spectroscopy data is determining the best method for removing the 
 baseline signal.  The details of the Raman signal can be obscured by the baseline signal which is always present and 
 caused by the fluorescence of the sample.  This process is known as baseline correction.
 
@@ -16,8 +16,8 @@ will provide the full signal (target and background).
 ------------
 - [X] Implement Python Generator to generate sample spectroscopy signal for analysis.
 - [X] Implement Python Generator to generate multiple variations of sample baseline signals for analysis.
-- [ ] Implement Python Generator to generate target dataset (target signal and baseline signal).
-- [ ] Implement Python methods to generate baseline dataset (baseline extracted from target signal samples).
+- [X] Implement Python Generator to generate target dataset (target signal and baseline signal).
+- [X] Implement Python methods to generate baseline dataset (baseline extracted from target signal samples).
 - [ ] Generate analysis plots for comparing results between Standard PCA and Contrastive PCA.
 - [ ] Generate anomaly detection models and compare results between Standard PCA and Contrastive PCA.
 
@@ -25,7 +25,6 @@ Project Organization
 ------------
 
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── generated      <- Simulated spectroscopy data generated from the included source code.
