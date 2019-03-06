@@ -5,11 +5,9 @@
 # show some examples of the generated signals.
 
 #%%
-import os
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-import pandas as pd 
 from scipy.stats import norm    
 
 mpl.style.use('seaborn-notebook')
@@ -23,7 +21,6 @@ x = np.arange(0, xnum, 1.0)
 # setup the signal generation distributions
 S_1 = norm.pdf(x, loc=310.0, scale=40.0)
 S_2 = norm.pdf(x, loc=390.0, scale=20.0)
-S_3 = norm.pdf(x, loc=360.0, scale=120.0)
 S_true = np.vstack((S_1, S_2))
 
 # generate signals at the normal boundary values
@@ -66,9 +63,8 @@ plt.legend()
 #%% [markdown]
 # ### Simulated Signal
 # The following plot shows an example of the input signal that will be used for this
-# analysis.  This sample plot is only showing the baseline curve without the additional
-# Gaussian adjustment.
-#
+# analysis.  
+# 
 # ### Classification Problem Definition
 # The goal of this project is to determine how well the different algorithms can classify
 # the simulated signal when the concentration level is out of bounds.  The following plots
