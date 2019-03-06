@@ -5,7 +5,7 @@ from scipy.stats import norm
 logging.basicConfig(level="INFO", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("data")
 
-def baseline_generator(num, x, gcurve=0, noise=0.00100):
+def baseline_generator(num, x, noise=0.00100):
     # initialize the output array for the specified number of curves
     bexponents = np.zeros(num)
     baselines = np.zeros((num, x.shape[0]))
@@ -16,17 +16,6 @@ def baseline_generator(num, x, gcurve=0, noise=0.00100):
         logger.debug('Baseline Exponent: [%.4f]', bexponents[i])
         blc = (-1e-7*x**bexponents[i])
         bl = blc + np.min(blc)*-1.0
-
-        # determine if we need to add/subtract in the gaussian curve
-        if gcurve != 0:
-            # define the optional gaussian curve
-            S_3 = norm.pdf(x, loc=360.0, scale=120.0)
-            if gcurve < 0:
-                logger.debug('Baseline Curve: [NEG]')                     
-                bl = bl - S_3        
-            else:
-                logger.debug('Baseline Curve: [POS]')                     
-                bl = bl + S_3
 
         # determine if we need to add in some random noise
         if noise > 0.0001: 
@@ -62,24 +51,29 @@ def signal_generator(x, cpeaks, noise=0.00075):
 
     return signals
 
-def data_generator(cnum, xnum=600, gcurve=0):
+def data_generator_levels(c, xnum=600):
     # setup the x-axis values
     x = np.arange(0, xnum, 1.0)
 
-    # generate some random concentration levels and compute weight value for each signal peak
-    c = np.random.random(cnum)
+    # compute weight value for each signal peak from given concentration levels
     cpeaks = np.vstack((c, (1.0-c))).T
     logger.info('CLevels shape: [%s]', cpeaks.shape)             
 
     # generate the requested baselines and signals
-    bexps, baselines = baseline_generator(cnum, x, gcurve)    
+    bexps, baselines = baseline_generator(c.shape[0], x)    
     signals = signal_generator(x, cpeaks)
     results = baselines+signals
     logger.info('Results shape: [%s]', results.shape)         
 
     return x, c, bexps, results
 
+def data_generator(cnum, xnum=600):
+    # generate some random concentration levels and compute weight value for each signal peak
+    c = np.random.random(cnum)
+    return data_generator_levels(c, xnum)
+
 if __name__ == "__main__":
-    xvals, targets, blexps, ydata = data_generator(5, gcurve=0)
-    xvals, targets, blexps, ydata = data_generator(10, gcurve=1)
-    xvals, targets, blexps, ydata = data_generator(15, gcurve=-1)
+    cvals = np.array([0.25, 0.50, 0.75])
+    xvals, targets, blexps, ydata = data_generator_levels(cvals)    
+    xvals, targets, blexps, ydata = data_generator(5)
+    xvals, targets, blexps, ydata = data_generator(10)

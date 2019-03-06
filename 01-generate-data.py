@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 from src.data import generators
 
-def generate_dataset(nitems, outpath, filename, gcurve):
+def generate_dataset(nitems, outpath, filename):
     # generate the training datasets using specified baseline curve value     
-    xvalues, yvalues, blexps, ydata = generators.data_generator(nitems, gcurve=gcurve) 
+    xvalues, yvalues, blexps, ydata = generators.data_generator(nitems) 
 
     # create dataframes from the generated dataset
     fname = os.path.join(outpath, filename)
@@ -22,23 +22,17 @@ def main(version, outpath, ntrain=150, nbackground=150, ntest=50):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    # define baseline curve arrays to loop over
-    #blnames = ["", "neg", "pos"]
-    blcurves = [0, 1, -1]
+    # generate the training dataset using specified baseline curve value  
+    fname = 'ds{0:04d}-raw-train.csv'.format(version) 
+    generate_dataset(ntrain, outpath, fname)
 
-    # loop over all the baseline curves
-    for i, c in enumerate(blcurves):
-        # generate the training dataset using specified baseline curve value  
-        fname = 'ds{0:04d}-base{1}-train.csv'.format(version, i) 
-        generate_dataset(ntrain, outpath, fname, c)
+    # generate the background training dataset using specified baseline curve value  
+    fname = 'ds{0:04d}-raw-background.csv'.format(version) 
+    generate_dataset(nbackground, outpath, fname)        
 
-        # generate the background training dataset using specified baseline curve value  
-        fname = 'ds{0:04d}-base{1}-background.csv'.format(version, i) 
-        generate_dataset(nbackground, outpath, fname, c)        
-
-        # generate the testing dataset using specified baseline curve value  
-        fname = 'ds{0:04d}-base{1}-test.csv'.format(version, i) 
-        generate_dataset(ntest, outpath, fname, c)        
+    # generate the testing dataset using specified baseline curve value  
+    fname = 'ds{0:04d}-raw-test.csv'.format(version) 
+    generate_dataset(ntest, outpath, fname)        
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
