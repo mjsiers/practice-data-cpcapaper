@@ -11,7 +11,7 @@ mpl.style.use('seaborn-notebook')
 plt.rcParams["figure.figsize"] = (12, 5)
 
 #%%
-dfFile = pd.read_csv('./data/generated/ds0001-baseline-train.csv', index_col=0)
+dfFile = pd.read_csv('./data/generated/ds0001-base0-train.csv', index_col=0)
 ylevel = dfFile['level'].values.copy()
 blexps = dfFile['blexp'].values.copy()
 dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()

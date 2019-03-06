@@ -39,4 +39,4 @@ if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
-    main(fname='./data/generated/ds0001-baseline-train.csv')
+    main(fname='./data/generated/ds0001-base0-train.csv')
