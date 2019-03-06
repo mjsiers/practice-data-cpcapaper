@@ -9,7 +9,7 @@ def baseline_generator(num, x, noise=0.00100):
     # initialize the output array for the specified number of curves
     bexponents = np.zeros(num)
     baselines = np.zeros((num, x.shape[0]))
-    logger.info('BCurves shape: [%s]', baselines.shape)    
+    logger.debug('BCurves shape: [%s]', baselines.shape)    
     for i in range(num):
         # generate random value for the exponent and compute baseline curve
         bexponents[i] = np.random.uniform(2.1, 2.2)
@@ -37,11 +37,11 @@ def signal_generator(x, cpeaks, noise=0.00075):
     # initialize the output array for the specified number of curves
     cnum = cpeaks.shape[0]
     signals = np.zeros((cnum, x.shape[0]))  
-    logger.info('Signals shape: [%s]', signals.shape)         
+    logger.debug('Signals shape: [%s]', signals.shape)         
     for i in range(cnum):     
         # generate the signals from the input concentration levels
         s = np.dot(cpeaks[i], S_true)
-        if (noise > 0.0001):
+        if noise > 0.0001:
             # generate the random noise  
             snoise = noise * np.random.normal(size=x.shape[0])
             s = s + snoise
@@ -51,19 +51,28 @@ def signal_generator(x, cpeaks, noise=0.00075):
 
     return signals
 
+def data_generator_signals(c, xnum=600, noise=0.0):
+    # setup the x-axis values
+    x = np.arange(0, xnum, 1.0)
+
+    # compute weight value for each signal peak from given concentration levels
+    cpeaks = np.vstack((c, (1.0-c))).T
+    signals = signal_generator(x, cpeaks, noise=noise)      
+    return signals
+
 def data_generator_levels(c, xnum=600):
     # setup the x-axis values
     x = np.arange(0, xnum, 1.0)
 
     # compute weight value for each signal peak from given concentration levels
     cpeaks = np.vstack((c, (1.0-c))).T
-    logger.info('CLevels shape: [%s]', cpeaks.shape)             
+    logger.debug('CLevels shape: [%s]', cpeaks.shape)             
 
     # generate the requested baselines and signals
     bexps, baselines = baseline_generator(c.shape[0], x)    
     signals = signal_generator(x, cpeaks)
     results = baselines+signals
-    logger.info('Results shape: [%s]', results.shape)         
+    logger.debug('Results shape: [%s]', results.shape)         
 
     return x, c, bexps, results
 

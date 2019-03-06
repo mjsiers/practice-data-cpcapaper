@@ -2,9 +2,8 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-import pandas as pd
-from scipy.stats import norm    
 from sklearn.pipeline import Pipeline
+from src.data.generators import data_generator_levels, data_generator_signals
 from src.models.transformers.filter import Filter
 from src.models.transformers.baseline import Baseline
 from src.models.transformers.truncate import Truncate
@@ -13,20 +12,9 @@ mpl.style.use('seaborn-notebook')
 plt.rcParams["figure.figsize"] = (12, 5)
 
 #%%
-xnum = 600
-x = np.arange(0, xnum, 1.0)
-
-# setup the signal generation distributions
-S_1 = norm.pdf(x, loc=310.0, scale=40.0)
-S_2 = norm.pdf(x, loc=390.0, scale=20.0)
-S_true = np.vstack((S_1, S_2))
-
-#%%
-dfFile = pd.read_csv('./data/generated/ds0001-raw-train.csv', index_col=0)
-ylevel = dfFile['level'].values.copy()
-blexps = dfFile['blexp'].values.copy()
-dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()
-xvalues = dfX.columns.values.astype(float)
+cvals = np.array([0.15, 0.50, 0.85])
+xvalues, ylevel, blexps, ydata0 = data_generator_levels(cvals)
+signals = data_generator_signals(cvals, noise=0.0)
 
 xmin = 200
 xmax = 450
@@ -37,7 +25,6 @@ datapipeline = Pipeline([
     ('truncate', Truncate(xmin=xmin, xmax=xmax))   
 ])
 
-ydata0 = dfX.values.copy()
 ydata_fl = datapipeline.named_steps['filter'].transform(ydata0.copy())
 ydata_bl = datapipeline.named_steps['baseline'].transform(ydata_fl.copy())
 ydata_cs = datapipeline.named_steps['correct'].transform(ydata_fl.copy())
@@ -45,40 +32,28 @@ ydata_tr = datapipeline.named_steps['truncate'].transform(ydata_cs.copy())
 
 #%%
 for i in range(3):
-    target = ylevel[i]
-    C_true = np.array([[target, 1.-target]])
-    signal = np.dot(C_true, S_true)
-
     fig, axs = plt.subplots()
-    axs.plot(xvalues, signal[0], label='signal') 
+    axs.plot(xvalues, signals[i], label='signal') 
     axs.plot(xvalues, ydata0[i], label='raw')
     axs.plot(xvalues, ydata_bl[i], label='baseline')    
-    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], target))         
+    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], ylevel[i]))         
     plt.legend()
 
 #%%
 for i in range(3):
-    target = ylevel[i]
-    C_true = np.array([[target, 1.-target]])
-    signal = np.dot(C_true, S_true)
-
     fig, axs = plt.subplots()
-    axs.plot(xvalues[xmin:xmax+1], signal[0, xmin:xmax+1], label='signal')    
+    axs.plot(xvalues[xmin:xmax+1], signals[i, xmin:xmax+1], label='signal')    
     axs.plot(xvalues[xmin:xmax+1], ydata0[i, xmin:xmax+1], label='raw')
     axs.plot(xvalues[xmin:xmax+1], ydata_fl[i, xmin:xmax+1], label='filter')    
     axs.plot(xvalues[xmin:xmax+1], ydata_bl[i, xmin:xmax+1], label='baseline')    
-    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], target))         
+    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], ylevel[i]))         
     plt.legend()
 
 #%%
 for i in range(3):
-    target = ylevel[i]
-    C_true = np.array([[target, 1.-target]])
-    signal = np.dot(C_true, S_true)
-
     fig, axs = plt.subplots()
-    axs.plot(xvalues[xmin:xmax+1], signal[0, xmin:xmax+1], label='signal')    
+    axs.plot(xvalues[xmin:xmax+1], signals[i, xmin:xmax+1], label='signal')    
     #axs.plot(xvalues[xmin:xmax+1], ydata_cs[i, xmin:xmax+1], label='corrected')
     axs.plot(xvalues[xmin:xmax+1], ydata_tr[i], label='corrected')
-    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], target))         
+    fig.suptitle('Sample:[{0}] Baseline:[{1:.4f}] Target:[{2:.4f}]'.format(i, blexps[i], ylevel[i]))         
     plt.legend()
