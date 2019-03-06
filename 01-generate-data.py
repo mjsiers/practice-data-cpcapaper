@@ -20,7 +20,7 @@ def main(version, outpath, ntrain=150, nbackground=150, ntest=50):
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('generating simulated raw spectral data')
 
     # generate the training dataset using specified baseline curve value  
     fname = 'ds{0:04d}-raw-train.csv'.format(version) 

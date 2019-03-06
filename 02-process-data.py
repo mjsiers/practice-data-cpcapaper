@@ -12,7 +12,7 @@ def main(fname='', xmin=200, xmax=450):
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('processing simulated raw spectral data')
 
     # read in the CSV file and ensure we drop the concentration level column
     dfFile = pd.read_csv(fname, index_col=0)
@@ -39,4 +39,4 @@ if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
-    main(fname='./data/generated/ds0001-base0-train.csv')
+    main(fname='./data/generated/ds0001-raw-train.csv')
