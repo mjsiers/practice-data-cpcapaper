@@ -4,6 +4,8 @@ import matplotlib as mpl
 import numpy as np
 from sklearn.pipeline import Pipeline
 from src.data.generators import data_generator_levels, data_generator_signals
+from src.models.encoders.levelbinary import LevelBinary
+from src.models.encoders.levelmulti import LevelMulti
 from src.models.transformers.filter import Filter
 from src.models.transformers.baseline import Baseline
 from src.models.transformers.truncate import Truncate
@@ -16,6 +18,13 @@ cvals = np.array([0.15, 0.50, 0.85])
 xvalues, ylevel, blexps, ydata0 = data_generator_levels(cvals)
 signals = data_generator_signals(cvals, noise=0.0)
 
+ynormal = LevelBinary(targetmin=0.2, targetmax=0.8).transform(cvals)
+ymulti = LevelMulti(targetmin=0.2, targetmax=0.8).transform(cvals)
+print(cvals)
+print(ynormal)
+print(ymulti)
+
+#%%
 xmin = 200
 xmax = 450
 datapipeline = Pipeline([
