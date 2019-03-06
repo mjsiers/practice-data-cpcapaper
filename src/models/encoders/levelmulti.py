@@ -1,11 +1,10 @@
-
+import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class LevelMulti(BaseEstimator, TransformerMixin):
     ''' Encodes target value as a multi-classification value (low/normal/high) '''
-    def __init__(self, target="level", targetmin=0.2, targetmax=0.8):
-        ''' Called when initializing the transformer.  '''
-        self.target = target        
+    def __init__(self, targetmin=0.2, targetmax=0.8):
+        ''' Called when initializing the transformer.  '''      
         self.targetmin = targetmin
         self.targetmax = targetmax   
     
@@ -13,20 +12,10 @@ class LevelMulti(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        # create array to hold values
-        Xlabels = []
-
-        # loop over all the data rows
-        for idx, row in X.iterrows():
-            itemValue = row[self.target]
-            if itemValue < self.targetmin:
-                labelValue = 0                  
-            elif itemValue <= self.targetmax:
-                labelValue = 1                                                                              
-            else:
-                labelValue = 2
-    
-            # add label to the array
-            Xlabels.append(labelValue)
-
-        return Xlabels
+        # set value to 0|1|2
+        Xdata = np.zeros(X.shape[0], dtype=int)
+        norm = np.logical_and(self.targetmin <= X, X <= self.targetmax)
+        Xdata[norm] = 1
+        Xdata[X > self.targetmax] = 2           
+        
+        return Xdata
