@@ -50,15 +50,3 @@ ydata, Xdata = load_data('./data/processed/ds0001-baseline-train.csv')
 ppca = pca_pipeline(ncomponents=2)
 Xpca = ppca.fit_transform(Xdata)
 plot_data('PCA Baseline Dataset', ydata, Xpca)
-
-#%%
-ydata, Xdata = load_data('./data/processed/ds0002-filtered-train.csv')
-ppca = pca_pipeline(ncomponents=2)
-Xpca = ppca.fit_transform(Xdata)
-plot_data('PCA Filtered Dataset', ydata, Xpca)
-
-#%%
-ydata, Xdata = load_data('./data/processed/ds0002-baseline-train.csv')
-ppca = pca_pipeline(ncomponents=2)
-Xpca = ppca.fit_transform(Xdata)
-plot_data('PCA Baseline Dataset', ydata, Xpca)
