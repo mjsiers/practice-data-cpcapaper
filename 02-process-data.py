@@ -35,7 +35,7 @@ def main(version, inpath, outpath):
     logger.info('processing simulated raw spectral data files')
 
     # loop over all the file names/types
-    files = ['train', 'background', 'test']
+    files = ['train', 'background', 'background-baseline', 'test']
     for f in files:
         # determine the current file and ensure it exists
         fname = 'ds{0:04d}-raw-{1}.csv'.format(version, f)
@@ -57,8 +57,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # for dataset version one fixing the random to make generate reproducable
-    #np.random.seed(42)
-    #main(version=1, inpath='./data/generated', outpath='./data/processed') 
+    np.random.seed(42)
+    main(version=1, inpath='./data/generated', outpath='./data/processed') 
     np.random.seed(43)
     main(version=2, inpath='./data/generated', outpath='./data/processed') 
     
