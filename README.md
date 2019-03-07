@@ -14,6 +14,10 @@ will provide the full signal (target and background).
 
 ## Project Goals
 ------------
+TBD.
+
+## Project Tasks
+------------
 - [X] Implement Python Generator to generate sample spectroscopy signal for analysis.
 - [X] Implement Python Generator to generate multiple variations of sample baseline signals for analysis.
 - [X] Implement Python Generator to generate target dataset (target signal and baseline signal).
@@ -21,14 +25,13 @@ will provide the full signal (target and background).
 - [ ] Generate analysis plots for comparing results between Standard PCA and Contrastive PCA.
 - [ ] Generate anomaly detection models and compare results between Standard PCA and Contrastive PCA.
 
-Project Organization
+## Project Organization
 ------------
 
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── generated      <- Simulated spectroscopy data generated from the included source code.
-    │   ├── interim        <- Intermediate data that has been transformed.
     │   └── processed      <- The final, canonical data sets for modeling.
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
@@ -40,9 +43,6 @@ Project Organization
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
@@ -50,19 +50,12 @@ Project Organization
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │   ├── data           <- Scripts to generate data
+    │   │              
+    │   └── models         <- Scripts to process raw data files     
+    │       ├── encoders
+    │       ├── pipelines
+    │       └── transformers    
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
 
