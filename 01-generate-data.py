@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 from src.data import generators
 
-def generate_dataset(nitems, outpath, filename):
+def generate_dataset(nitems, outpath, filename, baselineonly=False):
     # generate the training datasets using specified baseline curve value     
-    xvalues, yvalues, blexps, ydata = generators.data_generator(nitems) 
+    xvalues, yvalues, blexps, ydata = generators.data_generator(nitems, baselineonly=baselineonly) 
 
     # create dataframes from the generated dataset
     fname = os.path.join(outpath, filename)
@@ -28,7 +28,7 @@ def main(version, outpath, ntrain=150, nbackground=150, ntest=50):
 
     # generate the background training dataset using specified baseline curve value  
     fname = 'ds{0:04d}-raw-background.csv'.format(version) 
-    generate_dataset(nbackground, outpath, fname)        
+    generate_dataset(nbackground, outpath, fname, baselineonly=True)        
 
     # generate the testing dataset using specified baseline curve value  
     fname = 'ds{0:04d}-raw-test.csv'.format(version) 
@@ -39,5 +39,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # for dataset version one fixing the random to make generate reproducable
-    np.random.seed(42)
-    main(version=1, outpath='./data/generated')
+    #np.random.seed(42)
+    #main(version=1, outpath='./data/generated')    
+    np.random.seed(43)
+    main(version=2, outpath='./data/generated')

@@ -57,5 +57,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     # for dataset version one fixing the random to make generate reproducable
-    np.random.seed(42)
-    main(version=1, inpath='./data/generated', outpath='./data/processed') 
+    #np.random.seed(42)
+    #main(version=1, inpath='./data/generated', outpath='./data/processed') 
+    np.random.seed(43)
+    main(version=2, inpath='./data/generated', outpath='./data/processed') 
+    
