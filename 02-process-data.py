@@ -35,7 +35,7 @@ def main(version, inpath, outpath):
     logger.info('processing simulated raw spectral data files')
 
     # loop over all the file names/types
-    files = ['train', 'background', 'background-baseline', 'test']
+    files = ['train', 'background-signal', 'background-nosignal', 'test']
     for f in files:
         # determine the current file and ensure it exists
         fname = 'ds{0:04d}-raw-{1}.csv'.format(version, f)

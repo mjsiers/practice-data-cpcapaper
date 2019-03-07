@@ -35,16 +35,17 @@ ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
 
 cpca = CPCA()
 Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels, n_alphas=10, max_log_alpha=2, n_alphas_to_return=4)
+
 #%%
-_, Xback = load_data('./data/processed/ds0002-filtered-background.csv')
-ydata, Xdata = load_data('./data/processed/ds0002-filtered-train.csv')
+_, Xback = load_data('./data/processed/ds0001-filtered-background-baseline.csv')
+ydata, Xdata = load_data('./data/processed/ds0001-filtered-train.csv')
 ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
 
 cpca = CPCA()
 Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels)
 
 #%%
-_, Xback = load_data('./data/processed/ds0002-baseline-background.csv')
+_, Xback = load_data('./data/processed/ds0001-baseline-background.csv')
 ydata, Xdata = load_data('./data/processed/ds0002-baseline-train.csv')
 ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
 

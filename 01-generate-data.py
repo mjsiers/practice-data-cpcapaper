@@ -31,9 +31,9 @@ def main(version, outpath, ntrain=150, nbackground=150, ntest=50):
     generate_dataset(ntest, outpath, fname) 
 
     # generate the background training dataset using specified baseline curve value  
-    fname = 'ds{0:04d}-raw-background.csv'.format(version) 
+    fname = 'ds{0:04d}-raw-background-signal.csv'.format(version) 
     generate_dataset(nbackground, outpath, fname, baselineonly=False)  
-    fname = 'ds{0:04d}-raw-background-baseline.csv'.format(version) 
+    fname = 'ds{0:04d}-raw-background-nosignal.csv'.format(version) 
     generate_dataset(nbackground, outpath, fname, baselineonly=True)             
 
 if __name__ == '__main__':
