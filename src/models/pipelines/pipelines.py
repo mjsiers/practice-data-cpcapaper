@@ -10,27 +10,21 @@ from src.models.transformers.filter import Filter
 from src.models.transformers.baseline import Baseline
 from src.models.transformers.truncate import Truncate
 
-def baseline_pipeline(outbaseline=False):
+def baseline_pipeline(skipbaseline=False, outbaseline=False):
     pipeline = Pipeline([
-        ('filter', Filter(windowsize=15, polyorder=2)),
-        ('baseline', Baseline(polyorder=3, weight=0.95, outbaseline=outbaseline))
+        ('filter', Filter(windowsize=15, polyorder=2))    
     ])
+    if not skipbaseline:
+        pipeline.steps.append(('baseline', Baseline(polyorder=3, weight=0.95, outbaseline=outbaseline)))    
     return pipeline
 
-def preprocess_pipeline(xmin=200, xmax=450):
+def preprocess_pipeline(skipbaseline=False, xmin=200, xmax=450):
     # get baseline pipeline and append on the truncate step
-    pipeline = baseline_pipeline(outbaseline=False)
+    pipeline = baseline_pipeline(skipbaseline=skipbaseline, outbaseline=False)
     pipeline.steps.append(('truncate', Truncate(xmin=xmin, xmax=xmax)))
     return pipeline
 
 def pca_pipeline(ncomponents=0.95, scalestd=False):
-    pipeline = Pipeline([
-        ('scale', StandardScaler(with_mean=True, with_std=scalestd)),
-        ('project', PCA(n_components=ncomponents, whiten=False))
-    ])
-    return pipeline
-
-def cpca_pipeline(ncomponents, scalestd=False):
     pipeline = Pipeline([
         ('scale', StandardScaler(with_mean=True, with_std=scalestd)),
         ('project', PCA(n_components=ncomponents, whiten=False))
