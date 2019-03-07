@@ -24,7 +24,7 @@ def preprocess_pipeline(skipbaseline=False, xmin=200, xmax=450):
     pipeline.steps.append(('truncate', Truncate(xmin=xmin, xmax=xmax)))
     return pipeline
 
-def pca_pipeline(ncomponents=0.95, scalestd=False):
+def pca_pipeline(ncomponents=0.95, scalestd=True):
     pipeline = Pipeline([
         ('scale', StandardScaler(with_mean=True, with_std=scalestd)),
         ('project', PCA(n_components=ncomponents, whiten=False))
