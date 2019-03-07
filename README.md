@@ -14,10 +14,6 @@ will provide the full signal (target and background).
 
 ## Project Goals
 ------------
-TBD.
-
-## Project Tasks
-------------
 - [X] Implement Python Generator to generate sample spectroscopy signal for analysis.
 - [X] Implement Python Generator to generate multiple variations of sample baseline signals for analysis.
 - [X] Implement Python Generator to generate target dataset (target signal and baseline signal).
