@@ -2,10 +2,7 @@ import os
 import logging
 import numpy as np
 import pandas as pd
-from sklearn.pipeline import Pipeline
-from src.models.transformers.filter import Filter
-from src.models.transformers.baseline import Baseline
-from src.models.transformers.truncate import Truncate
+from src.models.pipelines.pipelines import preprocess_pipeline
 
 def main(fname='', xmin=200, xmax=450):
     """ Runs data processing scripts to turn raw data from (../raw) into
@@ -20,13 +17,9 @@ def main(fname='', xmin=200, xmax=450):
     blexps = dfFile['blexp'].values.copy()       
     dfX = dfFile.drop(['level', 'blexp'], axis=1).copy()
 
-    # setup pipeline and transform the data
-    datapipeline = Pipeline([
-        ('filter', Filter(windowsize=17, polyorder=3)),
-        ('baseline', Baseline(polyorder=3, weight=0.95)),        
-        ('truncate', Truncate(xmin=xmin, xmax=xmax))  
-    ])
-    Xdata = datapipeline.transform(dfX.values)
+    # get the pipeline that will transform the data
+    pipeline = preprocess_pipeline(xmin=xmin, xmax=xmax)
+    Xdata = pipeline.transform(dfX.values)
 
     # covert data to dataframe in order to save the output to a file
     xcols = np.arange(xmin, xmax+1, dtype=int)      
