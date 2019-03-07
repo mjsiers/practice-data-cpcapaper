@@ -1,6 +1,6 @@
 #%% [markdown]
 # ## PCA Analysis Results
-# The goal of this notebook is to document the PCA results on the simulated datasetsself.
+# The goal of this notebook is to document the PCA results on the simulated datasets.
 
 #%%
 import matplotlib.pyplot as plt
@@ -32,9 +32,11 @@ def plot_data(title, y, X):
     fig, axs = plt.subplots()
     l = axs.scatter(X[ylabel0, 0], X[ylabel0, 1], s=10, c='black', marker='o')
     n = axs.scatter(X[ylabel1, 0], X[ylabel1, 1], s=10, c='blue', marker='o')
-    h = axs.scatter(X[ylabel2, 0], X[ylabel2, 1], s=10, c='red', marker='o')    
-    plt.legend((l, n, h), ('low', 'norm', 'high'), scatterpoints=1)
-    fig.suptitle(title)       
+    h = axs.scatter(X[ylabel2, 0], X[ylabel2, 1], s=10, c='red', marker='o') 
+    axs.set_xlabel('PCA 1')
+    axs.set_ylabel('PCA 2')
+    axs.set_title(title)
+    plt.legend((l, n, h), ('low', 'norm', 'high'), scatterpoints=1)  
     plt.show()      
 
 #%%
