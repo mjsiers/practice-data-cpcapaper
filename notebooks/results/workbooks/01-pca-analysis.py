@@ -5,14 +5,17 @@
 #%%
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from IPython.display import set_matplotlib_formats
 import numpy as np
 import pandas as pd
 from sklearn import metrics
 from src.models.encoders.levelmulti import LevelMulti
 from src.models.pipelines.pipelines import pca_pipeline
 
+%matplotlib inline
+set_matplotlib_formats('png', 'pdf')
 mpl.style.use('seaborn-notebook')
-plt.rcParams["figure.figsize"] = (7, 5)
+plt.rcParams["figure.figsize"] = (8, 6)
 
 #%%
 def load_data(filename):
