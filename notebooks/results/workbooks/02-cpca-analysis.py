@@ -19,35 +19,21 @@ def load_data(filename):
     #blexps = dfFile['blexp'].values.copy()       
     dfData = df.drop(['level', 'blexp'], axis=1).copy()
     return ylevel, dfData.values.copy()
+
+def cpca_plot(dsver, dsname):
+    ydata, Xdata = load_data('./data/processed/ds{0:04d}-{1}-train.csv'.format(dsver, dsname))
+    ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
+
+    _, Xback = load_data('./data/processed/ds{0:04d}-{1}-background-signal.csv'.format(dsver, dsname))
+    CPCA().fit_transform(Xdata, Xback, plot=True, active_labels=ylabels)
+    #CPCA().fit_transform(Xdata, Xback, plot=True, active_labels=ylabels, n_alphas=10, max_log_alpha=2, n_alphas_to_return=4)
+
+    _, Xback = load_data('./data/processed/ds{0:04d}-{1}-background-nosignal.csv'.format(dsver, dsname))
+    CPCA().fit_transform(Xdata, Xback, plot=True, active_labels=ylabels)  
+    #CPCA().fit_transform(Xdata, Xback, plot=True, active_labels=ylabels, n_alphas=10, max_log_alpha=2, n_alphas_to_return=4)      
      
 #%%
-_, Xback = load_data('./data/processed/ds0001-filtered-background-signal.csv')
-ydata, Xdata = load_data('./data/processed/ds0001-filtered-train.csv')
-ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
-
-cpca = CPCA()
-Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels, n_alphas=10, max_log_alpha=2, n_alphas_to_return=4)
+cpca_plot(2, 'filtered')
 
 #%%
-_, Xback = load_data('./data/processed/ds0001-baseline-background-signal.csv')
-ydata, Xdata = load_data('./data/processed/ds0001-baseline-train.csv')
-ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
-
-cpca = CPCA()
-Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels, n_alphas=10, max_log_alpha=2, n_alphas_to_return=4)
-
-#%%
-_, Xback = load_data('./data/processed/ds0001-filtered-background-nosignal.csv')
-ydata, Xdata = load_data('./data/processed/ds0001-filtered-train.csv')
-ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
-
-cpca = CPCA()
-Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels)
-
-#%%
-_, Xback = load_data('./data/processed/ds0001-baseline-background-nosignal.csv')
-ydata, Xdata = load_data('./data/processed/ds0002-baseline-train.csv')
-ylabels = LevelMulti(targetmin=0.2, targetmax=0.8).transform(ydata.copy())
-
-cpca = CPCA()
-Xpca = cpca.fit_transform(Xdata, Xback, plot=True, active_labels=ylabels)
+cpca_plot(2, 'baseline')

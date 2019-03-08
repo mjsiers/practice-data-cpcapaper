@@ -7,13 +7,11 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import pandas as pd
-from sklearn.pipeline import Pipeline
-from src.models.encoders.levelbinary import LevelBinary
 from src.models.encoders.levelmulti import LevelMulti
 from src.models.pipelines.pipelines import pca_pipeline
 
 mpl.style.use('seaborn-notebook')
-plt.rcParams["figure.figsize"] = (9, 9)
+plt.rcParams["figure.figsize"] = (7, 5)
 
 #%%
 def load_data(filename):
@@ -39,14 +37,14 @@ def plot_data(title, y, X):
     plt.legend((l, n, h), ('low', 'norm', 'high'), scatterpoints=1)  
     plt.show()      
 
-#%%
-ydata, Xdata = load_data('./data/processed/ds0001-filtered-train.csv')
-ppca = pca_pipeline(ncomponents=2)
-Xpca = ppca.fit_transform(Xdata)
-plot_data('PCA Filtered Dataset', ydata, Xpca)
+def pca_plot(dsver, dsname):
+    ydata, Xdata = load_data('./data/processed/ds{0:04d}-{1}-train.csv'.format(dsver, dsname))
+    ppca = pca_pipeline(ncomponents=2)
+    Xpca = ppca.fit_transform(Xdata)
+    plot_data('PCA {0} Dataset'.format(dsname.capitalize()), ydata, Xpca)    
 
 #%%
-ydata, Xdata = load_data('./data/processed/ds0001-baseline-train.csv')
-ppca = pca_pipeline(ncomponents=2)
-Xpca = ppca.fit_transform(Xdata)
-plot_data('PCA Baseline Dataset', ydata, Xpca)
+pca_plot(2, 'filtered')
+
+#%%
+pca_plot(2, 'baseline')
