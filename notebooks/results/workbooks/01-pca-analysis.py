@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import pandas as pd
+from sklearn import metrics
 from src.models.encoders.levelmulti import LevelMulti
 from src.models.pipelines.pipelines import pca_pipeline
 
@@ -35,16 +36,22 @@ def plot_data(title, y, X):
     axs.set_ylabel('PCA 2')
     axs.set_title(title)
     plt.legend((l, n, h), ('low', 'norm', 'high'), scatterpoints=1)  
-    plt.show()      
+    plt.show()
+    return ylabels   
 
 def pca_plot(dsver, dsname):
     ydata, Xdata = load_data('./data/processed/ds{0:04d}-{1}-train.csv'.format(dsver, dsname))
     ppca = pca_pipeline(ncomponents=2)
     Xpca = ppca.fit_transform(Xdata)
-    plot_data('PCA {0} Dataset'.format(dsname.capitalize()), ydata, Xpca)    
+    labs = plot_data('PCA {0} Dataset'.format(dsname.capitalize()), ydata, Xpca) 
+
+    sscore = metrics.silhouette_score(Xpca, labs)   
+    return sscore
 
 #%%
-pca_plot(2, 'filtered')
+score = pca_plot(2, 'filtered')
+print('PCA Filtered Silhouette Score: {0:.4f}'.format(score))
 
 #%%
-pca_plot(2, 'baseline')
+score = pca_plot(2, 'baseline')
+print('PCA Baseline Silhouette Score: {0:.4f}'.format(score))
