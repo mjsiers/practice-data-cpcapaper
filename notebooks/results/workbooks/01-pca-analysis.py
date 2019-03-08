@@ -45,13 +45,11 @@ def pca_plot(dsver, dsname):
     Xpca = ppca.fit_transform(Xdata)
     labs = plot_data('PCA {0} Dataset'.format(dsname.capitalize()), ydata, Xpca) 
 
-    sscore = metrics.silhouette_score(Xpca, labs)   
-    return sscore
+    score = metrics.silhouette_score(Xpca, labs)   
+    print('PCA {0} Silhouette Score: {1:.4f}'.format(dsname.capitalize(), score))    
 
 #%%
-score = pca_plot(2, 'filtered')
-print('PCA Filtered Silhouette Score: {0:.4f}'.format(score))
+pca_plot(2, 'filtered')
 
 #%%
-score = pca_plot(2, 'baseline')
-print('PCA Baseline Silhouette Score: {0:.4f}'.format(score))
+pca_plot(2, 'baseline')
