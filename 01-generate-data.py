@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     # for dataset version one fixing the random to make generate reproducable
     np.random.seed(42)
-    main(version=1, outpath='./data/generated')    
+    main(version=1, outpath='./data/generated', ntrain=150, nbackground=150, ntest=100)    
     np.random.seed(43)
-    main(version=2, outpath='./data/generated')
+    main(version=2, outpath='./data/generated', ntrain=300, nbackground=300, ntest=100)
