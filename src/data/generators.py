@@ -60,7 +60,7 @@ def data_generator_signals(c, xnum=600, noise=0.0):
     signals = signal_generator(x, cpeaks, noise=noise)      
     return signals
 
-def data_generator_levels(c, xnum=600):
+def data_generator_levels(c, xnum=600, baselineonly=False):
     # setup the x-axis values
     x = np.arange(0, xnum, 1.0)
 
@@ -69,17 +69,20 @@ def data_generator_levels(c, xnum=600):
     logger.debug('CLevels shape: [%s]', cpeaks.shape)             
 
     # generate the requested baselines and signals
-    bexps, baselines = baseline_generator(c.shape[0], x)    
-    signals = signal_generator(x, cpeaks)
-    results = baselines+signals
-    logger.debug('Results shape: [%s]', results.shape)         
+    bexps, baselines = baseline_generator(c.shape[0], x)
+    if baselineonly:
+        results = baselines
+    else: 
+        signals = signal_generator(x, cpeaks)
+        results = baselines+signals
 
+    logger.debug('Results shape: [%s]', results.shape)         
     return x, c, bexps, results
 
-def data_generator(cnum, xnum=600):
+def data_generator(cnum, xnum=600, baselineonly=False):
     # generate some random concentration levels and compute weight value for each signal peak
     c = np.random.random(cnum)
-    return data_generator_levels(c, xnum)
+    return data_generator_levels(c, xnum, baselineonly=baselineonly)
 
 if __name__ == "__main__":
     cvals = np.array([0.25, 0.50, 0.75])

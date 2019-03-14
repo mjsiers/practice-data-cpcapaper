@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 from src.models.transformers.filter import Filter
 from src.models.transformers.baseline import Baseline
 from src.models.transformers.truncate import Truncate
@@ -24,7 +26,7 @@ def preprocess_pipeline(skipbaseline=False, xmin=200, xmax=450):
     pipeline.steps.append(('truncate', Truncate(xmin=xmin, xmax=xmax)))
     return pipeline
 
-def pca_pipeline(ncomponents=0.95, scalestd=False):
+def pca_pipeline(ncomponents=0.95, scalestd=True):
     pipeline = Pipeline([
         ('scale', StandardScaler(with_mean=True, with_std=scalestd)),
         ('project', PCA(n_components=ncomponents, whiten=False))
@@ -36,6 +38,21 @@ def knn_estimator(pipeline, nneighbors=5):
         pipeline = Pipeline([])    
     pipeline.steps.append(('predict', KNeighborsClassifier(n_neighbors=nneighbors)))
     return pipeline
+
+# https://stackoverflow.com/questions/32194967/how-to-do-pca-and-svm-for-classification-in-python
+# https://scikit-learn.org/stable/auto_examples/svm/plot_iris.html
+def svc_estimator(pipeline):
+    if pipeline is None:
+        pipeline = Pipeline([])    
+    pipeline.steps.append(('predict', SVC()))
+    return pipeline  
+
+#https://stats.stackexchange.com/questions/144439/applying-pca-to-test-data-for-classification-purposes
+def dtree_estimator(pipeline):
+    if pipeline is None:
+        pipeline = Pipeline([])    
+    pipeline.steps.append(('predict', DecisionTreeClassifier()))
+    return pipeline    
 
 def rf_estimator(pipeline, nestimators=10):
     if pipeline is None:
