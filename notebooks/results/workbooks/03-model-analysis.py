@@ -145,5 +145,5 @@ run_models(ytrain, Xtrain, ytest, Xtest)
 #%% [markdown]
 # ### Classification Model Results
 # On this simulated dataset, the Contrastive PCA algorithm was not able to out perform the standard
-# PCA algorithm on a baseline corrected dataset.  This experiment should probably executed again
+# PCA algorithm on a baseline corrected dataset.  This experiment should probably be executed again
 # using a more complex baseline to see if it would perform better under these conditions.  
