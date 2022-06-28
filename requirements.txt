@@ -1,4 +1,4 @@
-arrow==0.13.0
+arrow==0.15.1
 astroid==2.2.2
 backcall==0.1.0
 binaryornot==0.4.4
